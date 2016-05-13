@@ -130,9 +130,26 @@ void main(void)
 // USER CODE STARTS HERE
 //==============================================================================
   
+  Port.A.SetPinsDigitalOut(BIT_3);    // LED4 on Chipkit MAX32
+  Port.C.SetPinsDigitalOut(BIT_1);    // LED5 on Chipkit MAX32
+  
+#define LED4_TOGGLE     Port.A.ToggleBits(BIT_3);
+#define LED5_TOGGLE     Port.C.ToggleBits(BIT_1);
+  
+#define LED4_ON         Port.A.SetBits(BIT_3);
+#define LED5_ON         Port.C.SetBits(BIT_1);
+  
+#define LED4_OFF        Port.A.ClearBits(BIT_3);
+#define LED5_OFF        Port.C.ClearBits(BIT_1);
+  
+  LED4_OFF;
+  LED5_ON;    // The states of both LEDs are opposed
   
 	while(1)  //infinite loop
 	{
+    LED4_TOGGLE;
+    LED5_TOGGLE;
     
+    Timer.DelayMs(500);   // Delay of 500 ms
 	}
 } //END MAIN CODE
