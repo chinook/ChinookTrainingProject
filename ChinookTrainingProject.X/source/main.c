@@ -53,6 +53,11 @@
 //            The keyword "extern" is used when a file needs to access a variable
 //            that was defined in another file. Ex: extern BOOL oToggleLed4;
 //
+//            The keyword "volatile" is used to declare a variable that is shared
+//            between interrupts and normal functions.
+//
+//            DO NOT USE THE FILES "StateMachine.c/.h".
+//
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Solution : The solution of this lesson is in the branch 
