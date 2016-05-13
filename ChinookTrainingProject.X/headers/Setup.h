@@ -84,17 +84,6 @@ void StartInterrupts  (void);
 //==============================================================================
 // Variable definitions
 //==============================================================================
-#define CAN_NB_CHANNELS     2 // 2 CAN channels will be used
-#define CAN_BUFFER_SIZE     8
 
-BYTE Can1MessageFifoArea [ CAN_NB_CHANNELS     // Space used by CAN
-                         * CAN_BUFFER_SIZE 
-                         * CAN_TX_RX_MESSAGE_SIZE_BYTES 
-                         ];
-
-BYTE Can2MessageFifoArea [ CAN_NB_CHANNELS     // Space used by CAN
-                         * CAN_BUFFER_SIZE 
-                         * CAN_TX_RX_MESSAGE_SIZE_BYTES 
-                         ];
 
 #endif	/* __SETUP_H__ */

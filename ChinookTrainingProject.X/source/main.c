@@ -1,33 +1,69 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Chinook Project Template
+// Chinook Training Project
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// File    : main.c
-// Author  : Frederic Chasse
-// Date    : 2015-01-03
+// File     : main.c
+// Author   : Frederic Chasse
+// Date     : 2016-05-13
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Purpose : This is the main C file of the template project used by all
-//           developpers of Chinook. It uses ChinookLib, which is another
-//           repository on Github.
+// Purpose  : This is the main C file of the training project for the
+//            developpers of Chinook. It uses ChinookLib, which is another
+//            repository on Github.
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Notes   : For ChinookLib to be useable, it must be cloned on your hard
-//           drive so the path
-//               "..\..\..\ChinookLib\ChinookLib.X\headers\ChinookLib.h"
-//           references an existing file.
+// Lesson   : The goal of this lesson is to familiarize the user with simple
+//            use of ChinookLib and to help understand the interface between
+//            software and hardware.
+//
+//            In this first lesson, you must toggles both LEDs on the Chipkit
+//            MAX32 development board at a rate of 500 ms. The code is to be
+//            implemented in the infinite while loop of the file main.c.
+//
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+// Hints    : You must look in the documentation of the Chipkit MAX32, available
+//            online or in the folder of this project, to find which I/Os to 
+//            toggle.
+//
+//            You must define your I/Os as inputs or outputs before entering
+//            the infinite while loop.
+//
+//            The functions needed for this lesson are in the libraries "Timer"
+//            and "Port" of ChinookLib.
+//
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+// Solution : The solution of this lesson is in the branch 
+//            "ChipkitMax32FirstLessonSolution" of the repository 
+//            "ChinookTrainingProject".
+//
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+// Notes    : For ChinookLib to be useable, it must be cloned on your hard
+//            drive so the path
+//                "..\..\..\ChinookLib\ChinookLib.X\headers\ChinookLib.h"
+//            references an existing file.
+//
+//            Depending on the microcontroller used, the project settings must
+//            be set accordingly. For the Chipkit MAX32 development board, the
+//            uC used is a PIC32MX795F512L.
+//
+//            To set the correct setting, you must 
+//            -> right-click on your project name
+//            -> Properties
+//            -> Device: PIC32MX795F512L
+//
+//            The settings of ChinookLib and your project must match.
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 #include "..\headers\Setup.h"
-#include "..\headers\SkadiFunctions.h"
-#include "..\headers\Interrupts.h"
-#include "..\headers\StateMachine.h"
 #include "..\headers\HardwareProfile.h"
 
 
@@ -86,34 +122,15 @@ void main(void)
 //==============================================================================
   SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
 //==============================================================================
-
-
-// State machine init
-//=================================================================
-  if (Wdt.ReadEvent())    // If a system reset has occured
-  {
-    Wdt.Disable();        // Disable WDT and
-    Wdt.ClearEvent();     // the WDT event bit
-    pState = &StateError; // Go to StateError
-  }
-  else
-  {
-    pState = &StateInit;  // Else, initialize the system as usual
-  }
-//=================================================================
+  
+  
+//==============================================================================
+// USER CODE STARTS HERE
+//==============================================================================
+  
   
 	while(1)  //infinite loop
 	{
-    
-  // State machine entry & exit point
-  //===========================================================
-		(*pState)();          // jump to next state
-  //===========================================================
-
-  // State scheduler
-  //===========================================================
-    StateScheduler();     // Decides which state will be next
-	//===========================================================
     
 	}
 } //END MAIN CODE
