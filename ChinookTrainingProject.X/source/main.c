@@ -1,6 +1,6 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Chinook Training Project
+// Chinook Training Project - Lesson 1
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
@@ -34,7 +34,9 @@
 //            the infinite while loop.
 //
 //            The functions needed for this lesson are in the libraries "Timer"
-//            and "Port" of ChinookLib.
+//            and "Port" of ChinookLib. To view the different functions
+//            available, type "Timer." or "Port." and a description with
+//            examples of all functions will appear on screen.
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //

@@ -1,12 +1,12 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Chinook Project Template
+// Chinook Training Project
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // File    : Setup.h
 // Author  : Frederic Chasse
-// Date    : 2015-01-03
+// Date    : 2016-05-13
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
@@ -50,35 +50,11 @@ struct sChinook Chinook;            // Contains all ChinookLib functions
 //==============================================================================
 // State Machine public functions prototypes
 //==============================================================================
-void InitTimer        (void);
-void InitPwm          (void);
-void InitPorts        (void);
-void InitCan          (void);
-void InitSkadi        (void);
-void InitSpi          (void);
-void InitUart         (void);
-void InitI2c          (void);
-void InitWdt          (void);
-void InitAdc          (void);
-void InitInputCapture (void);
-void StartInterrupts  (void);
 
 
 //==============================================================================
 // Macro definitions
 //==============================================================================
-#define INIT_TIMER          InitTimer()
-#define INIT_PWM            InitPwm()
-#define INIT_PORTS          InitPorts()
-#define INIT_CAN            InitCan()
-#define INIT_SPI            InitSpi()
-#define INIT_UART           InitUart()
-#define INIT_SKADI          InitSkadi()
-#define INIT_I2C            InitI2c()
-#define INIT_WDT            InitWdt()
-#define INIT_ADC            InitAdc()
-#define INIT_INPUT_CAPTURE  InitInputCapture()
-#define START_INTERRUPTS    StartInterrupts()
 
 
 //==============================================================================

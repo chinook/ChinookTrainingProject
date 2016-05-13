@@ -14,9 +14,4 @@ source/main.c  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookUart.h  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookSpi.h  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookWdt.h  \
- source/../headers/SkadiFunctions.h  \
-source/../headers/Setup.h  \
- source/../headers/Interrupts.h  \
-source/../headers/StateMachine.h  \
- source/../headers/StateFunctions.h  \
-source/../headers/HardwareProfile.h 
+ source/../headers/HardwareProfile.h 

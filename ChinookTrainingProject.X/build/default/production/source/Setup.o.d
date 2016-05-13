@@ -13,7 +13,4 @@ source/Setup.c  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookSkadi.h  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookUart.h  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookSpi.h  \
- source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookWdt.h  \
- source/../headers/Interrupts.h  \
-source/../headers/Setup.h  \
- source/../headers/SkadiFunctions.h 
+ source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookWdt.h 
