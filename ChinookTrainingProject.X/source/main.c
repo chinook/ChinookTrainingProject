@@ -1,6 +1,6 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Chinook Training Project - Lesson 2
+// Chinook Training Project - Lesson 2 - Solution
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
@@ -139,9 +139,40 @@ void main(void)
 // USER CODE STARTS HERE
 //==============================================================================
   
+  Port.F.SetPinsDigitalOut(BIT_8);    // U1TX: Transmit channel of UART 1
+  Port.F.SetPinsDigitalIn (BIT_2);    // U1RX: Receive channel of UART 1
+  
+  // UART 1 channel settings
+  UartModule_t    uartModule      = UART1;
+  BaudRate_t      baudRate        = BAUD9600;                             // Data transfer rate
+  UartConfig_t    oConfig         = UART_ENABLE_PINS_TX_RX_ONLY;          // Don't use the CTS and RTS pins
+  UartFifoMode_t  oFifoMode       = UART_INTERRUPT_ON_TX_DONE             // Interrupt settings, not really important here
+                                  | UART_INTERRUPT_ON_RX_3_QUARTER_FULL
+                                  ;
+  UartLineCtrlMode_t oLineControl = UART_DATA_SIZE_8_BITS                 // 8 bits per word
+                                  | UART_PARITY_NONE                      // No parity bit
+                                  | UART_STOP_BITS_1                      // 1 stop bit
+                                  ;
+  
+  Uart.Open(uartModule, baudRate, oConfig, oFifoMode, oLineControl);      // UART1 open function
+  
+  Uart.EnableRx(UART1);                                                   // Enable the RX channel of UART1
+  Uart.EnableTx(UART1);                                                   // Enable the TX channel of UART1
+  
+  INT16 character = 0;    // Variable in which the data to receive and to send is stored
   
 	while(1)  //infinite loop
 	{
+    character = Uart.GetDataByte(UART1);    // Check for a byte in the UART1 buffer
     
+    if (character < 0)                      // No character was received
+    {
+      character = 0;
+    }
+    else                                    // If a character was received
+    {
+      Uart.SendDataByte(UART1, character);  // Send it back
+      character = 0;
+    }
 	}
 } //END MAIN CODE
