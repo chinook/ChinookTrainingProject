@@ -46,6 +46,8 @@
 //              UartFifoMode_t oFifoMode = UART_INTERRUPT_ON_TX_BUFFER_EMPTY 
 //                                       | UART_INTERRUPT_ON_RX_NOT_EMPTY
 //                                       ;
+//            Also note that the RX interrupts must first be ENABLED and that 
+//            the TX interrupt must first be DISABLED.
 //
 //            Note that the interrupt routine is already written. You only need
 //            to use the necessary functions as defined in ChinookLib.
