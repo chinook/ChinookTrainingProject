@@ -46,6 +46,8 @@
 //              UartFifoMode_t oFifoMode = UART_INTERRUPT_ON_TX_BUFFER_EMPTY 
 //                                       | UART_INTERRUPT_ON_RX_NOT_EMPTY
 //                                       ;
+//            Also note that the RX interrupts must first be ENABLED and that 
+//            the TX interrupt must first be DISABLED.
 //
 //            Note that the interrupt routine is already written. You only need
 //            to use the necessary functions as defined in ChinookLib.
@@ -170,6 +172,9 @@ void main(void)
   Uart.EnableRx(uartModule); 
   Uart.EnableTx(uartModule);
   
+  Uart.ConfigInterrupt(UART1, UART1_INTERRUPT_PRIORITY, UART1_INTERRUPT_SUBPRIORITY);
+  Uart.EnableRxInterrupts(UART1);
+  Uart.DisableTxInterrupts(UART1);
   
   //============================================
   // Enable multi-vector interrupts
@@ -178,9 +183,17 @@ void main(void)
   INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
   INTEnableInterrupts();
   
+  sUartLineBuffer_t buffer =  // UART buffer
+  { 
+    .buffer = {0} 
+   ,.length =  0 
+  }; 
+  
+  INT32 err;
   
 	while(1)  //infinite loop
 	{
+    err = Uart.GetRxFifoBuffer(UART1, &buffer, FALSE);
     
 	}
 } //END MAIN CODE
