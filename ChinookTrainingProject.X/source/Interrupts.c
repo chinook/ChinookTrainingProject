@@ -28,6 +28,14 @@
 #include "..\headers\Interrupts.h"
 
 
+//==============================================================================
+// VARIABLES
+//==============================================================================
+BOOL oToggleLed4 = 0
+    ,oToggleLed5 = 0
+    ;
+
+
 /*******************************************************************************
  ***********************                               *************************
  ********************           TIMER INTERRUPTS          **********************
@@ -39,9 +47,7 @@
 //=============================================
 void __ISR(_TIMER_1_VECTOR, T1_INTERRUPT_PRIORITY) Timer1InterruptHandler(void)
 {
-  /*
-   * DEVELOPPER CODE HERE
-   */
+  oToggleLed4 = 1;
   
   // Increment the number of overflows from this timer. Used primarily by Input Capture
   Timer.Var.nOverflows[0]++;
@@ -54,9 +60,7 @@ void __ISR(_TIMER_1_VECTOR, T1_INTERRUPT_PRIORITY) Timer1InterruptHandler(void)
 //=============================================
 void __ISR(_TIMER_2_VECTOR, T2_INTERRUPT_PRIORITY) Timer2InterruptHandler(void)
 {
-  /*
-   * DEVELOPPER CODE HERE
-   */
+  oToggleLed5 = 1;
 
   // Increment the number of overflows from this timer. Used primarily by Input Capture
   Timer.Var.nOverflows[1]++;

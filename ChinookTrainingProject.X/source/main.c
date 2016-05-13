@@ -93,7 +93,9 @@
 //==============================================================================
 // VARIABLE DECLARATIONS
 //==============================================================================
-
+extern BOOL  oToggleLed4
+            ,oToggleLed5
+            ;
 
 //==============================================================================
 // MAIN CODE
@@ -149,9 +151,23 @@ void main(void)
   INTDisableInterrupts();   // Disable all interrupts of the system. Put your initialization
                             // functions after this line.
   
+  Timer.Open(TIMER_1, 200, SCALE_MS);   // Timer used for LED4
+  Timer.Open(TIMER_2, 500, SCALE_MS);   // Timer used for LED5
   
-  /* User code */
+  Timer.ConfigInterrupt(TIMER_1, TIMER1_INTERRUPT_PRIORITY, TIMER1_INTERRUPT_SUBPRIORITY);  // Configure the interrupts for TIMER1
+  Timer.ConfigInterrupt(TIMER_2, TIMER2_INTERRUPT_PRIORITY, TIMER2_INTERRUPT_SUBPRIORITY);  // Configure the interrupts for TIMER1
   
+  Timer.EnableInterrupt(TIMER_1);       // Enable interrupts for TIMER1
+  Timer.EnableInterrupt(TIMER_2);       // Enable interrupts for TIMER2
+  
+  Port.A.SetPinsDigitalOut(BIT_3);      // LED4 on MAX32
+  Port.C.SetPinsDigitalOut(BIT_1);      // LED5 on MAX32
+  
+  Port.A.ClearBits(BIT_3);              // LED4 OFF
+  Port.C.SetBits  (BIT_1);              // LED5 ON
+  
+#define LED4_TOGGLE       Port.A.ToggleBits(BIT_3)    // MACRO for toggling LED4
+#define LED5_TOGGLE       Port.C.ToggleBits(BIT_1)    // MACRO for toggling LED5
   
   //============================================
   // Enable multi-vector interrupts
@@ -163,6 +179,16 @@ void main(void)
   
 	while(1)  //infinite loop
 	{
+    if (oToggleLed4)
+    {
+      oToggleLed4 = 0;
+      LED4_TOGGLE;
+    }
     
+    if (oToggleLed5)
+    {
+      oToggleLed5 = 0;
+      LED5_TOGGLE;
+    }
 	}
 } //END MAIN CODE
