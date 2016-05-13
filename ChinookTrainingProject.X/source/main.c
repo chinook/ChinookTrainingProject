@@ -1,6 +1,6 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Chinook Training Project - Lesson 4
+// Chinook Training Project - Lesson 5
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
@@ -17,50 +17,61 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Lesson   : The goal of this lesson is to familiarize the user with the
-//            use of interrupts for the different communication protocols used
-//            in the Chinook projects. In the case of this lesson, the UART
-//            interrupts will be used.
+//            state machines used in all the projects done in Chinook.
 //
-//            In this fourth lesson, you must echo 8 times any character sent
-//            from a terminal console on a computer. For example, if the 
-//            character received is 'a', then you must send back the string
-//            "aaaaaaaa\n\r". You must use the receive and transmit interrupt
-//            functions, as described in the documentation of ChinookLib.
+//            In this fifth lesson, you must implement a state machine that has
+//            the following states:
+//              Initialization state: Initialize all needed peripherals and I/Os
+//              Acquisition/Idle state: Check the flags and the UART buffer
+//              LED toggle state: Toggle the LED(s)
+//              Send data state: Send UART messages when needed
+//
+//            The State machine must act as follows:
+//              Both LEDs are initially OFF
+//              LED4 toggles at every 500 ms using the TIMER1 interrupt
+//              LED5 toggles when a character is received on UART1
+//              All received characters must be echoed back
+//              If the character 'A' is received, both LEDs switch behavior,
+//                i.e. LED5 toggles every 500 ms using TIMER1 and LED4 toggles 
+//                everytime a character is received. When another character 'A'
+//                is received, the LEDs behavior switch again.
+//                Moreover, the string "LEDs behavior switch occured\n\r" must
+//                be sent when this occurs.
+//
+//            All UART msgs must be sent in the "Send Data" state.
+//            All the LED toggling must occur in the "LED Toggle" state.
+//            All the UART reads must be performed in the "Acquisition" state.
+//
+//            The states change using a State Scheduler, of which a template is
+//            already available in "StateMachine.c".
+//
+//            All "Enable Interrupt" functions must be done in the function
+//            "StartInterrupts" located in "Setup.c".
+//
+//            ABSOLUTELY NO CODE must be added to "main.c".
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Hints    : You must look in the documentation of the Chipkit MAX32, available
 //            online or in the folder of this project, to find which I/Os to
 //            use for the LEDs and the UART channel.
-//
-//            You must configure the UART and its interrupt settings.
-//            Put your initialization functions between the lines:
-//
-//                INTDisableInterrupts();
-//            and
-//                INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
-//                INTEnableInterrupts();
-//
-//            The priority of the interrupt is already defined in the file
-//            "Interrupts.h". The FIFO mode of the UART must be:
-//              UartFifoMode_t oFifoMode = UART_INTERRUPT_ON_TX_BUFFER_EMPTY 
-//                                       | UART_INTERRUPT_ON_RX_NOT_EMPTY
-//                                       ;
-//            Also note that the RX interrupts must first be ENABLED and that 
-//            the TX interrupt must first be DISABLED.
-//
-//            Note that the interrupt routine is already written. You only need
-//            to use the necessary functions as defined in ChinookLib.
 //              
-//            The functions needed for this lesson are in the libraries "Uart"
-//            and "Port" of ChinookLib. To view the different functions
-//            available, type "Uart." or "Port." and a description with
+//            The functions needed for this lesson are in the libraries "Uart",
+//            "Timer" and "Port" of ChinookLib. To view the different functions
+//            available, type "Uart.", "Timer" or "Port." and a description with
 //            examples of all functions will appear on screen.
+//
+//            The interrupts and their priorities are already defined in 
+//            "Interrupts.c" and "Interrupts.h".
+//
+//            A template of the state machine is available in "StateMachine.c".
+//
+//            
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Solution : The solution of this lesson is in the branch 
-//            "ChipkitMax32Lesson4Solution" of the repository 
+//            "ChipkitMax32Lesson5Solution" of the repository 
 //            "ChinookTrainingProject".
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,6 +97,7 @@
 
 #include "..\headers\Setup.h"
 #include "..\headers\Interrupts.h"
+#include "..\headers\StateMachine.c"
 #include "..\headers\HardwareProfile.h"
 
 
@@ -144,25 +156,6 @@ void main(void)
 //==============================================================================
   SYSTEMConfig(SYS_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
 //==============================================================================
-  
-  
-//==============================================================================
-// USER CODE STARTS HERE
-//==============================================================================
-  
-  INTDisableInterrupts();   // Disable all interrupts of the system. Put your initialization
-                            // functions after this line.
-  
-  
-  /* User code */
-  
-  
-  //============================================
-  // Enable multi-vector interrupts
-  // Do your initialization before these lines.
-  //============================================
-  INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
-  INTEnableInterrupts();
   
   
 	while(1)  //infinite loop
