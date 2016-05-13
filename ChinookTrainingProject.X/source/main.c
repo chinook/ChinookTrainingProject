@@ -196,40 +196,42 @@ void main(void)
   
 	while(1)  //infinite loop
 	{
-    err = Uart.GetRxFifoBuffer(UART1, &buffer, FALSE);  // Look for received characters
+    if (Uart.Var.oIsRxDataAvailable[UART1])   // Look for received characters
+    {
+      err = Uart.GetRxFifoBuffer(UART1, &buffer, FALSE); 
     
-    if (err < 0)  // Nothing received
-    {
-      err = 0;
-    }
-    else
-    {
-      if (buffer.length == 1) // If only a character was received
+      if (err < 0)  // Nothing received
       {
-        character = buffer.buffer[0];   // Put it in memory
-        
-        for (i = 1; i < 8; i++)         // Multiply it 8 times
+        err = 0;
+      }
+      else
+      {
+        if (buffer.length == 1) // If only a character was received
         {
-          buffer.buffer[i] = character;
-          buffer.length++;
+          character = buffer.buffer[0];   // Put it in memory
+
+          for (i = 1; i < 8; i++)         // Multiply it 8 times
+          {
+            buffer.buffer[i] = character;
+            buffer.length++;
+          }
+
+          buffer.buffer[8] = '\n';        // Line feed
+          buffer.buffer[9] = '\r';        // Carriage return
+          buffer.length += 2;
+
+          Uart.PutTxFifoBuffer(UART1, &buffer);   // Send data
         }
-        
-        buffer.buffer[8] = '\n';        // Line feed
-        buffer.buffer[9] = '\r';        // Carriage return
-        buffer.length += 2;
-        
-        Uart.PutTxFifoBuffer(UART1, &buffer);   // Send data
-      }
-      else  // More than one character received
-      {
-        buffer.buffer[buffer.length] = '\n';    // Line feed
-        buffer.length++;
-        buffer.buffer[buffer.length] = '\r';    // Carriage return
-        buffer.length++;
-        
-        Uart.PutTxFifoBuffer(UART1, &buffer);   // Send data
+        else  // More than one character received
+        {
+          buffer.buffer[buffer.length] = '\n';    // Line feed
+          buffer.length++;
+          buffer.buffer[buffer.length] = '\r';    // Carriage return
+          buffer.length++;
+
+          Uart.PutTxFifoBuffer(UART1, &buffer);   // Send data
+        }
       }
     }
-    
 	}
 } //END MAIN CODE
