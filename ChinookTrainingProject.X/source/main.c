@@ -1,6 +1,6 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Chinook Training Project - Lesson 1
+// Chinook Training Project - Lesson 2
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
@@ -20,28 +20,37 @@
 //            use of ChinookLib and to help understand the interface between
 //            software and hardware.
 //
-//            In this first lesson, you must toggles both LEDs on the Chipkit
-//            MAX32 development board at a rate of 500 ms. The code is to be
-//            implemented in the infinite while loop of the file main.c.
+//            In this second lesson, you must communicate with your
+//            microcontroller using the UART protocol via a USB interface.
+//
+//            Your program must echo what you send to it, meaning that any 
+//            character received on the UART channel must be sent back. You will
+//            know that your program is working when you see what you type in
+//            your terminal
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Hints    : You must look in the documentation of the Chipkit MAX32, available
-//            online or in the folder of this project, to find which I/Os to 
-//            toggle.
+//            online or in the folder of this project, to find which UART
+//            channel to use. You also need to look in the PIC32 family
+//            datasheet to know which ports to set.
 //
-//            You must define your I/Os as inputs or outputs before entering
-//            the infinite while loop.
+//            You must init the right UART channel to be able to use it and set
+//            the I/O ports as inputs and/or ouputs.
+//            
+//            You need a serial interface software. A good one is Tera Term,
+//            which you can download here:
+//                https://en.osdn.jp/projects/ttssh2/releases/
 //
-//            The functions needed for this lesson are in the libraries "Timer"
+//            The functions needed for this lesson are in the libraries "Uart"
 //            and "Port" of ChinookLib. To view the different functions
-//            available, type "Timer." or "Port." and a description with
+//            available, type "Uart." or "Port." and a description with
 //            examples of all functions will appear on screen.
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Solution : The solution of this lesson is in the branch 
-//            "ChipkitMax32FirstLessonSolution" of the repository 
+//            "ChipkitMax32Leson2Solution" of the repository 
 //            "ChinookTrainingProject".
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
