@@ -1,12 +1,12 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Chinook Project Template
+// Chinook Training Project
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // File    : Interrupts.h
 // Author  : Frederic Chasse
-// Date    : 2015-01-03
+// Date    : 2016-05-13
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
@@ -53,7 +53,7 @@
  * | 2        | 2           |                   |
  * | 2        | 3           |                   |
  * |----------+-------------+-------------------|
- * | 3        | 0           |                   |
+ * | 3        | 0           | UART1             |
  * | 3        | 1           |                   |
  * | 3        | 2           |                   |
  * | 3        | 3           |                   |
@@ -65,13 +65,13 @@
  * |----------+-------------+-------------------|
  * | 5        | 0           |                   |
  * | 5        | 1           |                   |
- * | 5        | 2           | Timer 2           |
+ * | 5        | 2           |                   |
  * | 5        | 3           |                   |
  * |----------+-------------+-------------------|
  * | 6        | 0           |                   |
  * | 6        | 1           |                   |
  * | 6        | 2           |                   |
- * | 6        | 3           | Timer 1           |
+ * | 6        | 3           |                   |
  * |----------+-------------+-------------------|
  * | 7        | 0           |                   |
  * | 7        | 1           |                   |
@@ -84,21 +84,18 @@
 //===============================================
 // Timer interrupts priorities and subpriorities
 //===============================================
-#define TIMER1_INTERRUPT_PRIORITY       6         // Used in ChinookLib function
-#define T1_INTERRUPT_PRIORITY           ipl6auto  // Used in ISR
-#define TIMER2_INTERRUPT_PRIORITY       5         // Used in ChinookLib function
-#define T2_INTERRUPT_PRIORITY           ipl5auto  // Used in ISR
 
-#define TIMER1_INTERRUPT_SUBPRIORITY    3         // Highest subpriority
-#define TIMER2_INTERRUPT_SUBPRIORITY    2         // 
+
 //===============================================
 
 
 //===============================================
 // UART interrupts priorities and subpriorities
 //===============================================
+#define UART1_INTERRUPT_PRIORITY        3         // Used in ChinookLib function
+#define U1_INTERRUPT_PRIORITY           ipl3auto  // Used in ISR
 
-
+#define UART1_INTERRUPT_SUBPRIORITY     0         // Lowest subpriority
 //===============================================
 
 

@@ -1,6 +1,6 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Chinook Training Project - Lesson 3
+// Chinook Training Project - Lesson 4
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
@@ -17,23 +17,23 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Lesson   : The goal of this lesson is to familiarize the user with the
-//            principles of interrupts and variable sharing between files.
+//            use of interrupts for the different communication protocols used
+//            in the Chinook projects. In the case of this lesson, the UART
+//            interrupts will be used.
 //
-//            In this third lesson, you must toggle LED4 and LED5 of the MAX32
-//            at different rates using the timer interrupts. Flags from the file
-//            "Interrupts.c" must be used to toggle the LEDs in the infinite 
-//            loop of "main.c".
-//
-//            LED4 must toggle at a rate of 200 ms, whereas LED5 must toggle at
-//            a rate of 500 ms.
+//            In this fourth lesson, you must echo 8 times any character sent
+//            from a terminal console on a computer. For example, if the 
+//            character received is 'a', then you must send back the string
+//            "aaaaaaaa\n\r". You must use the receive and transmit interrupt
+//            functions, as described in the documentation of ChinookLib.
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Hints    : You must look in the documentation of the Chipkit MAX32, available
 //            online or in the folder of this project, to find which I/Os to
-//            use for the LEDs.
+//            use for the LEDs and the UART channel.
 //
-//            You must configure the Timers 1 and 2 and their interrupt settings.
+//            You must configure the UART and its interrupt settings.
 //            Put your initialization functions between the lines:
 //
 //                INTDisableInterrupts();
@@ -41,22 +41,21 @@
 //                INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
 //                INTEnableInterrupts();
 //
-//            The priorities of the interrupts are already defined in the file
+//            The priority of the interrupt is already defined in the file
 //            "Interrupts.h".
+//
+//            Note that the interrupt routine is already written. You only need
+//            to use the necessary functions as defined in ChinookLib.
 //              
-//
-//            The functions needed for this lesson are in the libraries "Timer"
+//            The functions needed for this lesson are in the libraries "Uart"
 //            and "Port" of ChinookLib. To view the different functions
-//            available, type "Timer." or "Port." and a description with
+//            available, type "Uart." or "Port." and a description with
 //            examples of all functions will appear on screen.
-//
-//            The keyword "extern" is used when a file needs to access a variable
-//            that was defined in another file. Ex: extern BOOL oToggleLed4;
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Solution : The solution of this lesson is in the branch 
-//            "ChipkitMax32Lesson3Solution" of the repository 
+//            "ChipkitMax32Lesson4Solution" of the repository 
 //            "ChinookTrainingProject".
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
