@@ -42,7 +42,10 @@
 //                INTEnableInterrupts();
 //
 //            The priority of the interrupt is already defined in the file
-//            "Interrupts.h".
+//            "Interrupts.h". The FIFO mode of the UART must be:
+//              UartFifoMode_t oFifoMode = UART_INTERRUPT_ON_TX_BUFFER_EMPTY 
+//                                       | UART_INTERRUPT_ON_RX_NOT_EMPTY
+//                                       ;
 //
 //            Note that the interrupt routine is already written. You only need
 //            to use the necessary functions as defined in ChinookLib.
