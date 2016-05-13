@@ -1,6 +1,6 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Chinook Training Project - Lesson 2
+// Chinook Training Project - Lesson 3
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
@@ -16,41 +16,47 @@
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Lesson   : The goal of this lesson is to familiarize the user with simple
-//            use of ChinookLib and to help understand the interface between
-//            software and hardware.
+// Lesson   : The goal of this lesson is to familiarize the user with the
+//            principles of interrupts and variable sharing between files.
 //
-//            In this second lesson, you must communicate with your
-//            microcontroller using the UART protocol via a USB interface.
+//            In this third lesson, you must toggle LED4 and LED5 of the MAX32
+//            at different rates using the timer interrupts. Flags from the file
+//            "Interrupts.c" must be used to toggle the LEDs in the infinite 
+//            loop of "main.c".
 //
-//            Your program must echo what you send to it, meaning that any 
-//            character received on the UART channel must be sent back. You will
-//            know that your program is working when you see what you type in
-//            your terminal
+//            LED4 must toggle at a rate of 200 ms, whereas LED5 must toggle at
+//            a rate of 500 ms.
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Hints    : You must look in the documentation of the Chipkit MAX32, available
-//            online or in the folder of this project, to find which UART
-//            channel to use. You also need to look in the PIC32 family
-//            datasheet to know which ports to set.
+//            online or in the folder of this project, to find which I/Os to
+//            use for the LEDs.
 //
-//            You must init the right UART channel to be able to use it and set
-//            the I/O ports as inputs and/or ouputs.
-//            
-//            You need a serial interface software. A good one is Tera Term,
-//            which you can download here:
-//                https://en.osdn.jp/projects/ttssh2/releases/
+//            You must configure the Timers 1 and 2 and their interrupt settings.
+//            Put your initialization functions between the lines:
 //
-//            The functions needed for this lesson are in the libraries "Uart"
+//                INTDisableInterrupts();
+//            and
+//                INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
+//                INTEnableInterrupts();
+//
+//            The priorities of the interrupts are already defined in the file
+//            "Interrupts.h".
+//              
+//
+//            The functions needed for this lesson are in the libraries "Timer"
 //            and "Port" of ChinookLib. To view the different functions
-//            available, type "Uart." or "Port." and a description with
+//            available, type "Timer." or "Port." and a description with
 //            examples of all functions will appear on screen.
+//
+//            The keyword "extern" is used when a file needs to access a variable
+//            that was defined in another file. Ex: extern BOOL oToggleLed4;
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Solution : The solution of this lesson is in the branch 
-//            "ChipkitMax32Leson2Solution" of the repository 
+//            "ChipkitMax32Lesson3Solution" of the repository 
 //            "ChinookTrainingProject".
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -75,6 +81,7 @@
 
 
 #include "..\headers\Setup.h"
+#include "..\headers\Interrupts.h"
 #include "..\headers\HardwareProfile.h"
 
 
@@ -138,6 +145,20 @@ void main(void)
 //==============================================================================
 // USER CODE STARTS HERE
 //==============================================================================
+  
+  INTDisableInterrupts();   // Disable all interrupts of the system. Put your initialization
+                            // functions after this line.
+  
+  
+  /* User code */
+  
+  
+  //============================================
+  // Enable multi-vector interrupts
+  // Do your initialization before these lines.
+  //============================================
+  INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
+  INTEnableInterrupts();
   
   
 	while(1)  //infinite loop
