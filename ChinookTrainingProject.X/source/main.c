@@ -189,11 +189,47 @@ void main(void)
    ,.length =  0 
   }; 
   
-  INT32 err;
+  INT32 err        = 0;
+  UINT8  i         = 0
+        ,character = 0
+        ;
   
 	while(1)  //infinite loop
 	{
-    err = Uart.GetRxFifoBuffer(UART1, &buffer, FALSE);
+    err = Uart.GetRxFifoBuffer(UART1, &buffer, FALSE);  // Look for received characters
+    
+    if (err < 0)  // Nothing received
+    {
+      err = 0;
+    }
+    else
+    {
+      if (buffer.length == 1) // If only a character was received
+      {
+        character = buffer.buffer[0];   // Put it in memory
+        
+        for (i = 1; i < 8; i++)         // Multiply it 8 times
+        {
+          buffer.buffer[i] = character;
+          buffer.length++;
+        }
+        
+        buffer.buffer[8] = '\n';        // Line feed
+        buffer.buffer[9] = '\r';        // Carriage return
+        buffer.length += 2;
+        
+        Uart.PutTxFifoBuffer(UART1, &buffer);   // Send data
+      }
+      else  // More than one character received
+      {
+        buffer.buffer[buffer.length] = '\n';    // Line feed
+        buffer.length++;
+        buffer.buffer[buffer.length] = '\r';    // Carriage return
+        buffer.length++;
+        
+        Uart.PutTxFifoBuffer(UART1, &buffer);   // Send data
+      }
+    }
     
 	}
 } //END MAIN CODE
