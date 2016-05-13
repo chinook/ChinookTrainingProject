@@ -47,6 +47,8 @@
 //            available, type "Uart." or "Port." and a description with
 //            examples of all functions will appear on screen.
 //
+//            DO NOT USE THE FILES "Interrupts.c/.h" and "StateMachine.c/.h".
+//
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 // Solution : The solution of this lesson is in the branch 
