@@ -1,6 +1,6 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
-// Chinook Training Project - Lesson 4
+// Chinook Training Project - Lesson 4 - Solution
 //
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
@@ -42,7 +42,10 @@
 //                INTEnableInterrupts();
 //
 //            The priority of the interrupt is already defined in the file
-//            "Interrupts.h".
+//            "Interrupts.h". The FIFO mode of the UART must be:
+//              UartFifoMode_t oFifoMode = UART_INTERRUPT_ON_TX_BUFFER_EMPTY 
+//                                       | UART_INTERRUPT_ON_RX_NOT_EMPTY
+//                                       ;
 //
 //            Note that the interrupt routine is already written. You only need
 //            to use the necessary functions as defined in ChinookLib.
@@ -148,8 +151,24 @@ void main(void)
   INTDisableInterrupts();   // Disable all interrupts of the system. Put your initialization
                             // functions after this line.
   
+  Port.F.SetPinsDigitalOut(BIT_8);    // U1TX
+  Port.F.SetPinsDigitalIn (BIT_2);    // U1RX
   
-  /* User code */
+  UartModule_t        uartModule    = UART1; 
+  BaudRate_t          baudRate      = BAUD9600; 
+  UartConfig_t        oConfig       = UART_ENABLE_PINS_TX_RX_ONLY;
+  UartFifoMode_t      oFifoMode     = UART_INTERRUPT_ON_TX_BUFFER_EMPTY 
+                                    | UART_INTERRUPT_ON_RX_NOT_EMPTY
+                                    ;
+  UartLineCtrlMode_t  oLineControl  = UART_DATA_SIZE_8_BITS 
+                                    | UART_PARITY_NONE 
+                                    | UART_STOP_BITS_1
+                                    ;
+  
+  Uart.Open(uartModule, baudRate, oConfig, oFifoMode, oLineControl); 
+  
+  Uart.EnableRx(uartModule); 
+  Uart.EnableTx(uartModule);
   
   
   //============================================
