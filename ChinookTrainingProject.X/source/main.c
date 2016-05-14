@@ -25,6 +25,7 @@
 //              Acquisition/Idle state: Check the flags and the UART buffer
 //              LED toggle state: Toggle the LED(s)
 //              Send data state: Send UART messages when needed
+//              Error state: Both LEDs toggle at a rate of 500 ms indefinitely.
 //
 //            The State machine must act as follows:
 //              Both LEDs are initially OFF
@@ -37,6 +38,7 @@
 //                is received, the LEDs behavior switch again.
 //                Moreover, the string "LEDs behavior switch occured\n\r" must
 //                be sent when this occurs.
+//              When no condition of state change is valid, go to state "Error".
 //
 //            All UART msgs must be sent in the "Send Data" state.
 //            All the LED toggling must occur in the "LED Toggle" state.
