@@ -1,6 +1,7 @@
-build/default/production/source/main.o:  \
-source/main.c  \
- source/../headers/Setup.h  \
+build/default/production/source/StateMachine.o:  \
+source/StateMachine.c  \
+ source/../headers/StateMachine.h  \
+source/../headers/Setup.h  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookLib.h  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookHardwareProfile.h  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookAdc.h  \
@@ -13,8 +14,4 @@ source/main.c  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookSkadi.h  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookUart.h  \
  source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookSpi.h  \
- source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookWdt.h  \
- source/../headers/Interrupts.h  \
-source/../headers/Setup.h  \
- source/../headers/StateMachine.h  \
-source/../headers/HardwareProfile.h 
+ source/../headers/../../../ChinookLib/ChinookLib.X/headers/ChinookWdt.h 

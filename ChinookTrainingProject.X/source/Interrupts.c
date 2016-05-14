@@ -37,6 +37,89 @@
 // INTERRUPTS
 //==============================================================================
 
+
+/*******************************************************************************
+ ***********************                               *************************
+ ********************           TIMER INTERRUPTS          **********************
+ ***********************                               *************************
+ ******************************************************************************/
+
+//=============================================
+// Configure the Timer 1 interrupt handler
+//=============================================
+void __ISR(_TIMER_1_VECTOR, T1_INTERRUPT_PRIORITY) Timer1InterruptHandler(void)
+{
+  /*
+   * DEVELOPPER CODE HERE
+   */
+  
+  // Increment the number of overflows from this timer. Used primarily by Input Capture
+  Timer.Var.nOverflows[0]++;
+  
+  mT1ClearIntFlag();
+}
+
+//=============================================
+// Configure the Timer 2 interrupt handler
+//=============================================
+void __ISR(_TIMER_2_VECTOR, T2_INTERRUPT_PRIORITY) Timer2InterruptHandler(void)
+{
+  /*
+   * DEVELOPPER CODE HERE
+   */
+
+  // Increment the number of overflows from this timer. Used primarily by Input Capture
+  Timer.Var.nOverflows[1]++;
+
+  mT2ClearIntFlag();
+}
+
+//=============================================
+// Configure the Timer 3 interrupt handler
+//=============================================
+void __ISR(_TIMER_3_VECTOR, T3_INTERRUPT_PRIORITY) Timer3InterruptHandler(void)
+{
+  /*
+   * DEVELOPPER CODE HERE
+   */
+
+  // Increment the number of overflows from this timer. Used primarily by Input Capture
+  Timer.Var.nOverflows[2]++;
+
+  mT3ClearIntFlag();
+}
+
+//=============================================
+// Configure the Timer 4 interrupt handler
+//=============================================
+void __ISR(_TIMER_4_VECTOR, T4_INTERRUPT_PRIORITY) Timer4InterruptHandler(void)
+{
+  /*
+   * DEVELOPPER CODE HERE
+   */
+
+  // Increment the number of overflows from this timer. Used primarily by Input Capture
+  Timer.Var.nOverflows[3]++;
+
+  mT4ClearIntFlag();
+}
+
+//=============================================
+// Configure the Timer 5 interrupt handler
+//=============================================
+void __ISR(_TIMER_5_VECTOR, T5_INTERRUPT_PRIORITY) Timer5InterruptHandler(void)
+{
+  /*
+   * DEVELOPPER CODE HERE
+   */
+
+  // Increment the number of overflows from this timer. Used primarily by Input Capture
+  Timer.Var.nOverflows[4]++;
+
+  mT5ClearIntFlag();
+}
+
+
 /*******************************************************************************
  ***********************                               *************************
  ********************           UART INTERRUPTS           **********************

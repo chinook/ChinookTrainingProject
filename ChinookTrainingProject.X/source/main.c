@@ -97,7 +97,7 @@
 
 #include "..\headers\Setup.h"
 #include "..\headers\Interrupts.h"
-#include "..\headers\StateMachine.c"
+#include "..\headers\StateMachine.h"
 #include "..\headers\HardwareProfile.h"
 
 

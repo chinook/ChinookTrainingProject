@@ -42,19 +42,21 @@ struct sChinook Chinook;            // Contains all ChinookLib functions
 
 
 //==============================================================================
-// Skadi functions
-//==============================================================================
-//extern const size_t lengthSkadiCommandTable;
-//extern sSkadiCommand_t skadiCommandTable[];
-
-//==============================================================================
 // State Machine public functions prototypes
 //==============================================================================
+void InitTimer        (void);
+void InitPorts        (void);
+void InitUart         (void);
+void StartInterrupts  (void);
 
 
 //==============================================================================
 // Macro definitions
 //==============================================================================
+#define INIT_TIMER          InitTimer()
+#define INIT_PORTS          InitPorts()
+#define INIT_UART           InitUart()
+#define START_INTERRUPTS    StartInterrupts()
 
 
 //==============================================================================

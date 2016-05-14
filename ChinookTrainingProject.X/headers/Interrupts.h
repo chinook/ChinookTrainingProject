@@ -43,12 +43,12 @@
  * +--------------------------------------------+
  * | Priority | Subpriority | Interrupt handler |
  * |----------+-------------+-------------------|
- * | 1        | 0           |                   |
- * | 1        | 1           |                   |
- * | 1        | 2           |                   |
- * | 1        | 3           |                   |
+ * | 1        | 0           | TIMER1            |
+ * | 1        | 1           | TIMER2            |
+ * | 1        | 2           | TIMER3            |
+ * | 1        | 3           | TIMER4            |
  * |----------+-------------+-------------------|
- * | 2        | 0           |                   |
+ * | 2        | 0           | TIMER5            |
  * | 2        | 1           |                   |
  * | 2        | 2           |                   |
  * | 2        | 3           |                   |
@@ -81,11 +81,26 @@
  * 
  */
 
+
 //===============================================
 // Timer interrupts priorities and subpriorities
 //===============================================
+#define TIMER1_INTERRUPT_PRIORITY       1
+#define T1_INTERRUPT_PRIORITY           ipl1auto
+#define TIMER2_INTERRUPT_PRIORITY       1
+#define T2_INTERRUPT_PRIORITY           ipl1auto
+#define TIMER3_INTERRUPT_PRIORITY       1
+#define T3_INTERRUPT_PRIORITY           ipl1auto
+#define TIMER4_INTERRUPT_PRIORITY       1
+#define T4_INTERRUPT_PRIORITY           ipl1auto
+#define TIMER5_INTERRUPT_PRIORITY       2
+#define T5_INTERRUPT_PRIORITY           ipl2auto
 
-
+#define TIMER1_INTERRUPT_SUBPRIORITY    0
+#define TIMER2_INTERRUPT_SUBPRIORITY    1
+#define TIMER3_INTERRUPT_SUBPRIORITY    2
+#define TIMER4_INTERRUPT_SUBPRIORITY    3
+#define TIMER5_INTERRUPT_SUBPRIORITY    0
 //===============================================
 
 
