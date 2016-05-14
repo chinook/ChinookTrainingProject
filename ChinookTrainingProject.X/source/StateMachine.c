@@ -136,6 +136,7 @@ void StateScheduler(void)
 
 }
 
+
 //===============================================================
 // Name     : StateInit
 // Purpose  : Initialization of the system.
@@ -152,9 +153,10 @@ void StateInit(void)
 
 }
 
+
 //===============================================================
-// Name     : State1
-// Purpose  : TBD.
+// Name     : StateAcq
+// Purpose  : Check flags and UART RX buffer.
 //===============================================================
 void StateAcq(void)
 {
@@ -179,65 +181,22 @@ void StateAcq(void)
 
 }
 
+
 //===============================================================
-// Name     : State2
-// Purpose  : TBD.
+// Name     : StateLedToggle
+// Purpose  : Toggle a LED
 //===============================================================
-void State2(void)
+void StateLedToggle(void)
 {
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  // VARIABLE DECLARATIONS
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  /*
-   * DEVELOPPER CODE HERE
-   */
-
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  // FIRST PART OF STATE
-  // Developper should add a small description of expected behavior
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  /*
-   * DEVELOPPER CODE HERE
-   */
-
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  // SECOND PART OF STATE
-  // Developper should add a small description of expected behavior
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  /*
-   * DEVELOPPER CODE HERE
-   */
-
+  
 }
 
+
 //===============================================================
-// Name     : StateError
-// Purpose  : Error state of the system. Used to assess and
-//            correct errors in the system.
+// Name     : StateSendData
+// Purpose  : Send data on UART1
 //===============================================================
-void StateError(void)
+void StateSendData(void)
 {
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  // VARIABLE DECLARATIONS
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  /*
-   * DEVELOPPER CODE HERE
-   */
-
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  // FIRST PART OF STATE
-  // Developper should add a small description of expected behavior
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  /*
-   * DEVELOPPER CODE HERE
-   */
-
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  // SECOND PART OF STATE
-  // Developper should add a small description of expected behavior
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  /*
-   * DEVELOPPER CODE HERE
-   */
-
+  
 }
