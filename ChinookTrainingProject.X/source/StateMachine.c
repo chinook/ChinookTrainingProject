@@ -23,6 +23,26 @@
 
 
 //==============================================================================
+//	VARIABLES
+//==============================================================================
+BOOL oSendData      = 0
+    ,oLedToggleUart = 0
+    ,oSendSwitchMsg = 0
+    ,oSwitchLeds    = 0
+    ;
+
+extern volatile BOOL oLedToggle500Ms;
+
+sUartLineBuffer_t uart1Data =  
+{
+  .buffer = {0}
+ ,.length =  0
+};
+
+const UINT8 switchMsg[] = "\n\rLEDs behavior switch occured\n\r\0";
+
+
+//==============================================================================
 //	STATES OF STATE MACHINE
 //==============================================================================
 
@@ -41,15 +61,7 @@ void StateScheduler(void)
   {
     if (INIT_2_ACQ)
     {
-      pState = &StateAcq;       // First state
-    }
-    else if (INIT_2_TWO)
-    {
-      pState = &State2;       // Second state
-    }
-    else if (INIT_2_ERROR)
-    {
-      pState = &StateError;   // Error state
+      pState = &StateAcq;
     }
     else
     {
@@ -62,40 +74,17 @@ void StateScheduler(void)
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   else if (pState == &StateAcq)
   {
-    if (ACQ_2_ACQ)
+    if (ACQ_2_LED_TOGGLE)
     {
-      pState = &StateAcq;       // First state
+      pState = &StateLedToggle;
     }
-    else if (ACQ_2_TWO)
+    else if (ACQ_2_SEND_DATA)
     {
-      pState = &State2;       // Second state
+      pState = &StateSendData;
     }
-    else if (ACQ_2_ERROR)
+    else if (ACQ_2_ACQ)
     {
-      pState = &StateError;   // Error state
-    }
-    else
-    {
-      pState = &StateError;   // Go to Error state by default
-    }
-  }
-
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  // Current state == State2
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  else if (pState == &State2)
-  {
-    if (TWO_2_ACQ)
-    {
-      pState = &StateAcq;       // First state
-    }
-    else if (TWO_2_TWO)
-    {
-      pState = &State2;       // Second state
-    }
-    else if (TWO_2_ERROR)
-    {
-      pState = &StateError;   // Error state
+      pState = &StateAcq;
     }
     else
     {
@@ -104,21 +93,36 @@ void StateScheduler(void)
   }
 
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  // Current state == StateError
+  // Current state == StateLedToggle
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  else if (pState == &StateError)
+  else if (pState == &StateLedToggle)
   {
-    if (ERROR_2_ACQ)
+    if (LED_TOGGLE_2_ACQ)
     {
-      pState = &StateAcq;       // First state
+      pState = &StateAcq;
     }
-    else if (ERROR_2_TWO)
+    else if (LED_TOGGLE_2_SEND_DATA)
     {
-      pState = &State2;       // Second state
+      pState = &StateSendData;
     }
-    else if (ERROR_2_ERROR)
+    else
     {
-      pState = &StateError;   // Error state
+      pState = &StateError;   // Go to Error state by default
+    }
+  }
+
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  // Current state == StateSendData
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  else if (pState == &StateSendData)
+  {
+    if (SEND_DATA_2_LED_TOGGLE)
+    {
+      pState = &StateAcq;
+    }
+    else if (SEND_DATA_2_ACQ)
+    {
+      pState = &StateLedToggle;
     }
     else
     {
@@ -161,12 +165,6 @@ void StateInit(void)
 void StateAcq(void)
 {
   
-  sUartLineBuffer_t uart1Data =  
-  {
-    .buffer = {0}
-   ,.length =  0
-  };
-  
   INT32 err = 0;
   
   if (Uart.Var.oIsRxDataAvailable[UART1])                 // Check if RX interrupt occured
@@ -174,8 +172,14 @@ void StateAcq(void)
     err = Uart.GetRxFifoBuffer(UART1, &uart1Data, FALSE); // put received data in uart2Data
     if (err >= 0)                                         // If no error occured
     {
-      /* Do something */
-      Uart.PutTxFifoBuffer(UART1, &uart1Data);            // Put data received in TX FIFO buffer
+      oSendData = 1;
+      oLedToggleUart = 1;      
+      
+      if (uart1Data.buffer[0] == 'A')
+      {
+        oSendSwitchMsg = 1;
+        oSwitchLeds    = !oSwitchLeds;
+      }
     }
   }
 
@@ -188,6 +192,33 @@ void StateAcq(void)
 //===============================================================
 void StateLedToggle(void)
 {
+  if (oLedToggle500Ms)
+  {
+    oLedToggle500Ms = 0;
+    
+    if (oSwitchLeds)
+    {
+      LED5_TOGGLE;
+    }
+    else
+    {
+      LED4_TOGGLE;
+    }
+  }
+  
+  if (oLedToggleUart)
+  {
+    oLedToggleUart = 0;
+    
+    if (oSwitchLeds)
+    {
+      LED4_TOGGLE;
+    }
+    else
+    {
+      LED5_TOGGLE;
+    }
+  }
   
 }
 
@@ -198,5 +229,29 @@ void StateLedToggle(void)
 //===============================================================
 void StateSendData(void)
 {
+  oSendData = 0;
   
+  if (oSendSwitchMsg)
+  {
+    oSendSwitchMsg = 0;
+    memcpy(&uart1Data.buffer[uart1Data.length], &switchMsg[0], sizeof(switchMsg));
+    uart1Data.length += sizeof(switchMsg);
+  }
+  
+  Uart.PutTxFifoBuffer(UART1, &uart1Data);            // Put data received in TX FIFO buffer
+}
+
+
+//===============================================================
+// Name     : StateError
+// Purpose  : Error state
+//===============================================================
+void StateError(void)
+{
+  if (oLedToggle500Ms)
+  {
+    oLedToggle500Ms = 0;
+    LED4_TOGGLE;
+    LED5_TOGGLE;
+  }
 }

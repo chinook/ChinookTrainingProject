@@ -31,7 +31,7 @@
 //==============================================================================
 // VARIABLES
 //==============================================================================
-
+volatile BOOL oLedToggle500Ms;
 
 //==============================================================================
 // INTERRUPTS
@@ -49,9 +49,7 @@
 //=============================================
 void __ISR(_TIMER_1_VECTOR, T1_INTERRUPT_PRIORITY) Timer1InterruptHandler(void)
 {
-  /*
-   * DEVELOPPER CODE HERE
-   */
+  oLedToggle500Ms = 1;
   
   // Increment the number of overflows from this timer. Used primarily by Input Capture
   Timer.Var.nOverflows[0]++;

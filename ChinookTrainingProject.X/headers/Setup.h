@@ -58,6 +58,9 @@ void StartInterrupts  (void);
 #define INIT_UART           InitUart()
 #define START_INTERRUPTS    StartInterrupts()
 
+#define LED4_TOGGLE         Port.A.ToggleBits(BIT_3)
+#define LED5_TOGGLE         Port.C.ToggleBits(BIT_1)
+
 
 //==============================================================================
 // Variable definitions

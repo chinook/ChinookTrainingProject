@@ -36,8 +36,8 @@
 //                i.e. LED5 toggles every 500 ms using TIMER1 and LED4 toggles 
 //                everytime a character is received. When another character 'A'
 //                is received, the LEDs behavior switch again.
-//                Moreover, the string "LEDs behavior switch occured\n\r" must
-//                be sent when this occurs.
+//                Moreover, the string "\n\rLEDs behavior switch occured\n\r\0" 
+//                must be sent when this occurs.
 //              When no condition of state change is valid, go to state "Error".
 //
 //            All UART msgs must be sent in the "Send Data" state.
